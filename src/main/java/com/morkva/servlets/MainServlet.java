@@ -19,26 +19,32 @@ import java.util.List;
 /**
  * Created by koros on 19.06.2015.
  */
-@WebServlet("/")
+@WebServlet("/s")
 public class MainServlet extends HttpServlet {
 
     DAOFactory<Connection> daoFactory;
     private CategoryRepository categoryRepository;
     private Connection connection;
+    private int initcount = 0;
+    private int doget = 0;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(true);
-        session.setAttribute("connection", connection);
+        doget++;
+        req.setAttribute("string", "string");
         List<Category> all = categoryRepository.getAll();
         req.setAttribute("cat_rep", categoryRepository.toString());
         req.setAttribute("all_count", all.size());
         req.setAttribute("categories", all);
+        req.setAttribute("initcount", initcount);
+        req.setAttribute("doget", doget);
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
     @Override
     public void init() throws ServletException {
+        super.init();
+        initcount++;
         daoFactory = new MySQLDaoFactory();
         try {
             connection = getConnection();

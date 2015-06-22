@@ -16,6 +16,9 @@
 <h1>Categories</h1>
 <h2>All count = ${all_count}</h2>
 <h2>Cat rep = ${cat_rep}</h2>
+<h2>Init count = ${initcount}</h2>
+<h2>String = ${string}</h2>
+<h2>Do Get = ${doget}</h2>
 <c:forEach var="num" items="${categories}">
   <h2>${num.id}: ${num.name}</h2>
 </c:forEach>
